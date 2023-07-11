@@ -1,4 +1,6 @@
 import concurrent.futures
+
+# este modulo debe ser importado con pip
 import requests
 import threading
 import time

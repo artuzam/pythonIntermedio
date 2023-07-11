@@ -1,5 +1,7 @@
 import asyncio
 import time
+
+# este modulo debe ser importado con pip
 import aiohttp
 
 

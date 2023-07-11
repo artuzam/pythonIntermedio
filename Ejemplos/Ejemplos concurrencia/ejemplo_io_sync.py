@@ -1,3 +1,4 @@
+# este modulo debe ser importado con pip
 import requests
 import time
 
@@ -18,7 +19,7 @@ if __name__ == "__main__":
     sites = [
         "https://acaducr.ucr.ac.cr/",
         "https://www.python.org/",
-    ] * 8
+    ] * 80
     start_time = time.time()
     # download_all_sites(["https://acaducr.ucr.ac.cr/"])
     download_all_sites(sites)
