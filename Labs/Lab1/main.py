@@ -1,0 +1,38 @@
+import concurrent.futures
+import asyncio
+import time
+import api
+import ids
+import aiohttp
+
+
+async def get_user(session, id):
+    url = "https://jsonplaceholder.typicode.com/users/"
+    async with session.get(url) as response:
+        jsonRes = await response.json()
+        print(jsonRes[id]["name"])
+
+
+async def get_all_users_async():
+    async with aiohttp.ClientSession() as session:
+        tasks = [get_user(session, item) for item in ids.ids]
+        await asyncio.gather(*tasks, return_exceptions=True)
+
+
+def get_all_users_sync():
+    for item in ids.ids:
+        api.getOneUser(item)
+
+
+def get_all_users_threading():
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        executor.map(api.getOneUser, ids.ids)
+
+
+if __name__ == "__main__":
+    start_time = time.time()
+    # get_all_users_sync()
+    # get_all_users_threading()
+    asyncio.get_event_loop().run_until_complete(get_all_users_async())
+    duration = time.time() - start_time
+    print(duration)
