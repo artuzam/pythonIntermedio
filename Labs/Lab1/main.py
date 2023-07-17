@@ -1,21 +1,14 @@
 import concurrent.futures
+import aiohttp
 import asyncio
 import time
 import api
 import ids
-import aiohttp
-
-
-async def get_user(session, id):
-    url = "https://jsonplaceholder.typicode.com/users/"
-    async with session.get(url) as response:
-        jsonRes = await response.json()
-        print(jsonRes[id]["name"])
 
 
 async def get_all_users_async():
     async with aiohttp.ClientSession() as session:
-        tasks = [get_user(session, item) for item in ids.ids]
+        tasks = [api.get_user_async(session, item) for item in ids.ids]
         await asyncio.gather(*tasks, return_exceptions=True)
 
 
