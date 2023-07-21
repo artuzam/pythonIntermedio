@@ -3,7 +3,7 @@ import requests as req
 URL = "https://jsonplaceholder.typicode.com/users/"
 
 
-def getOneUser(id):
+def get_one_user(id):
     response = req.get(URL)
     print(response.json()[id]["name"])
     return response.json()[id]
